@@ -50,7 +50,8 @@ class AuthController extends Controller
         ]);
 
 
-        return redirect()->route('login');
+        session()->flash('success', 'User registered successfully!');
+        return redirect()->route('register');
     }
 
     public function showLoginForm()
