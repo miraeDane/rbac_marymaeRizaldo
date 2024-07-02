@@ -1,82 +1,95 @@
 @extends('mainLayout')
 
-@section('page-title','Account Registration')
+@section('page-title', 'Account Registration')
 
 @section('auth-content')
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 text-left lh-sm" style="font-size: 1.6rem; background-color: black; color: white;">Register New User</div>
-        <div class="col-sm-3"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-between mb-5">
+        <a href="{{ route('login') }}" class="nav-item  flex-fill me-1 text-center">Log in</a>
+        <a href="{{ route('register') }}" class="nav-item active flex-fill ms-1 text-center">Register</a>
     </div>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+</div>
+<div class="section section-signup">
+    <div class="container_cust">
         <div class="row">
-            <div class="col">
-            </div>
-            {{-- <div style="border: 1px solid grey;"> --}}
-            <div class="col" style="border-top:1px solid grey; border-left:1px solid grey; border-bottom:1px solid grey; ">
-                <div>
-                    <label class="auth-labels">First Name</label>
-                    <input type="text" name="firstname" value="{{ old('firstname') }}" required class="auth-textbox form-control form-control-sm border border-dark">
-                    @error('firstname')
-                    <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div>
-                    <label class="auth-labels">Last Name</label>
-                    <input type="text" name="lastname" value="{{ old('lastname') }}" required class="auth-textbox form-control form-control-sm border border-dark">
-                    @error('lastname')
-                    <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div>
-                    <label class="auth-labels">Username</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required class="auth-textbox form-control form-control-sm border border-dark">
-                    @error('name')
-                    <span>{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-            <div class="col" style="border-top:1px solid grey; border-right:1px solid grey; border-bottom:1px solid grey; ">
-                <div>
-                    <label class="auth-labels">Email</label>
-                    <input type="email" name="email" class="auth-textbox form-control form-control-sm border border-dark">
-                    <input type="checkbox" name="generate_email" id="generate_email" class="form-check-input border border-dark">
-                    <label for="generate_email" class="form-check-label">Generate Email Address</label>
-                    @error('email')
-                    <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div>
-                    <label class="auth-labels">Password</label>
-                    <input type="password" name="password" required class="auth-textbox form-control form-control-sm border border-dark">
-                    @error('password')
-                    <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div>
-                    <label class="auth-labels">Confirm Password</label>
-                    <input type="password" name="password_confirmation" required class="auth-textbox form-control form-control-sm border border-dark">
-                </div>
-            </div>
-            {{-- </div> --}}
-            <div class="col">
+            <div class="card card-signup">
+                @if (session('success'))
+                <script>
+                    alert("{{ session('success') }}");
+                </script>
+                @endif
+                <form method="POST" action="{{ route('register') }}">
+
+                    @csrf
+                    <div class="card-header text-center" style="background-color:transparent;">
+                        <h4 class="card-title title-up">Register new user</h4>
+                    </div>
+
+                    <!-- First Name input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+
+                        <input type="text" placeholder="First Name" name="firstname" value="{{ old('firstname') }}" required class="auth-textbox form-control-cust">
+                        @error('firstname')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </div>
+
+
+                    <!-- Last Name input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" placeholder="Last Name" name="lastname" value="{{ old('lastname') }}" required class="auth-textbox form-control-cust">
+                        @error('lastname')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </div>
+
+
+                    <!-- Username input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+
+                        <input type="text" placeholder="Username" name="name" value="{{ old('name') }}" required class="auth-textbox form-control-cust">
+                        @error('name')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+
+                        <input type="email" placeholder="Email Address" name="email" class="auth-textbox form-control-cust">
+                        <input type="checkbox" placeholder="Generate Email" name="generate_email" id="generate_email" class="form-check-input">
+                        <label for="generate_email" class="form-check-label" style="font-size:1rem; font-weight:400; color: #2c2c2c;">Generate Email Address</label>
+
+                        @error('email')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+
+                        <input type="password" placeholder="Password" name="password" required class="auth-textbox  form-control-cust">
+                        @error('password')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </div>  
+
+                    <!-- Repeat Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" placeholder="Confirm Password" name="password_confirmation" required class="auth-textbox  form-control-cust">
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-3">Sign
+                        Up</button>
+                    <button type="reset" class="btn btn-md btn-danger btn-block mb-3">Clear</button>
+                </form>
+
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6 py-2" style="border-left:1px solid grey; border-right:1px solid grey; border-bottom:1px solid grey;">
-                <div class="text-center">
-                    <button type="submit" class="btn btn-md btn-primary">Register</button>
-                    <button type="reset" class="btn btn-md btn-danger">Clear</button>
-                </div>
-            </div>
-            <div class="col-sm-3"></div>
-        </div>
-    </form>
-    <div class="col-row text-center">
-        <a href="{{ route('home') }}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Return to Landing Page</a>
     </div>
+
+</div>
+</div>
 </div>
 @endsection

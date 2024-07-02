@@ -1,56 +1,64 @@
 @extends('mainLayout')
 
-@section('title','Manage Users')
+@section('title', 'Manage Users')
 
 @section('page-content')
 <div class="container-fluid">
     <div class="row ps-1">
-        <div class="col bg-black text-light fs-5 text-start">
-             User Management
+        <div class="col bg-success-subtle fs-3 text-center text-bold" style="margin:40px; border-radius:20px;">
+            User Management
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-striped-columns table-hover table-primary fs-6">
-                 <tr class="text-center">
+            <table class="table table-striped table-hover fs-1" style="border-radius: 10px;">
+                <tr class="text-left">
                     <th>User ID</th>
                     <th>User Name</th>
                     <th>Full Name</th>
                     <th>E-mail</th>
                     <th>Role</th>
-                    <th colspan="2">Actions</th>
-                 </tr>
-                 @foreach($users as $user)
+                    <th colspan="2" style="text-align:center;">Actions</th>
+                </tr>
+                @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->userInfo->user_firstname.' '.$user->userInfo->user_lastname }}</td>
+                        <td>{{ $user->userInfo->user_firstname . ' ' . $user->userInfo->user_lastname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->primaryRole ? $user->primaryRole->name : 'No Role' }}</td>
                         <td class="text-center">
                             <a href="{{ route('editUser', $user->id) }}" title="Manage Selected User">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="green" class="bi bi-tools" viewBox="0 0 16 16">
-                                    <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 
-                                    .462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                 </svg>
                             </a>
                         </td>
                         <td class="text-center">
-                            <form action="{{ route('deleteUser', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <form action="{{ route('deleteUser', $user->id) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this user?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" title="Remove Selected User">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="white" class="bi bi-person-x" viewBox="0 0 16 16">
-                                        <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
-                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647 1.646-1.646.646.647L13.5 12.207l1.646 1.646.708-.708L14.207 11.5l1.646-1.646-.708-.708L13.5 10.793l-1.646-1.646-.708.708L12.793 11.5l-1.646 1.646.708.708L12.5 12.207z"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                                     </svg>
                                 </button>
                             </form>
                         </td>
                     </tr>
-                 @endforeach
+                @endforeach
             </table>
+            <p>
+                <a href="{{ route('home') }}" class="link-dark">Back</a>
+            </p>
         </div>
     </div>
 </div>
-@endsection       
+@endsection

@@ -3,41 +3,52 @@
 @section('page-title','Account Login')
 
 @section('auth-content')
-<div class="container vh-100">
-    <div class="row lh-base">
-        <div class="col-4"></div>
-        <div class="col-4" style="font-size: 1.6rem; background-color: black; color: white;">User Login</div>
-        <div class="col-4"></div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-between mb-5">
+        <a href="{{ route('login') }}" class="nav-item active flex-fill me-1 text-center">Log in</a>
+        <a href="{{ route('register') }}" class="nav-item flex-fill ms-1 text-center">Register</a>
     </div>
-    <div class="row">
-        <div class="col-4">&nbsp;</div>
-        <div class="col-4" style="border: 1px solid grey;">
-            <form method="POST" action="{{ route('login') }}" class="form">
-                @csrf
-                <div class="formgroupp">
-                    <label class="auth-labels">Username</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required class="auth-textbox form-control border border-dark">
-                    @error('name')
+</div>
+
+<div class="section section-signup">
+    <div class="container_cust">
+        <div class="row">
+            <div class="card card-signup">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="card-header text-center" style="background-color:transparent;">
+                        <h4 class="card-title title-up">Log in user</h4>
+                    </div>
+
+
+                    <!-- Email input -->
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" placeholder="Username" name="name" value="{{ old('name') }}" required class="auth-textbox form-control-cust" />
+                        @error('name')
                         <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="formgroup">
-                    <label class="auth-labels">Password</label>
-                    <input type="password" name="password" required class="auth-textbox form-control border border-dark">
-                    @error('password')
+                        @enderror
+                    </div>
+
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" placeholder="Password" name="password" required class="auth-textbox form-control-cust">
+                        @error('password')
                         <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="text-center">
-                   <button type="submit" class="btn btn-md btn-primary">Login</button>
-                   <button type="reset" class="btn btn-md btn-danger">Clear</button>
-                </div>
-                <div class="text-center">
-                    Not a user? Register <a href="{{ route('register') }}">Here</a>.
-                </div>
-            </form>
+                        @enderror
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
+                    <button type="reset" class="btn btn-md btn-danger btn-block mb-4">Clear</button>
+
+                </form>
+            </div>
         </div>
-        <div class="col-4"></div>
+        <!-- Pills content -->
+        </form>
     </div>
+</div>
 </div>
 @endsection
